@@ -1,0 +1,638 @@
+/* ── Reset & Base ── */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #f1f1f1;
+    --surface: #ffffff;
+    --surface-hover: #f8f4ef;
+    --primary: #ff6600;
+    --primary-dim: #e55a00;
+    --secondary: #2b81eb;
+    --text: #1b1b1b;
+    --text-muted: #5e5e5e;
+    --text-dim: #8a8a8a;
+    --border: #e0e0e0;
+    --radius: 12px;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'Courier New', Consolas, monospace;
+}
+
+body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+/* ── Header ── */
+#header {
+    text-align: center;
+    padding: 2rem 1rem 1.2rem;
+    border-bottom: 3px solid var(--primary);
+    background: var(--surface);
+}
+
+.header-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+#header h1 {
+    font-size: 2.2rem;
+    color: var(--primary);
+    letter-spacing: 0.02em;
+}
+
+#header p {
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+    font-size: 1rem;
+}
+
+/* ── Telas (SPA) ── */
+.tela {
+    animation: fadeIn 0.2s ease;
+}
+
+.tela.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.tela-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.tela-header h2 {
+    font-size: 1.2rem;
+    color: var(--text);
+    flex: 1;
+}
+
+.tela-header span {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.btn-voltar {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: var(--font);
+    transition: all 0.15s;
+    white-space: nowrap;
+}
+
+.btn-voltar:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* ── Filters ── */
+#filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 1rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+#filters select,
+#filters input {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.55rem 0.9rem;
+    font-size: 0.9rem;
+    font-family: var(--font);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+#filters select:focus,
+#filters input:focus {
+    border-color: var(--primary);
+}
+
+#filters input[type="search"] {
+    min-width: 220px;
+}
+
+#filters select {
+    cursor: pointer;
+}
+
+.btn-importar {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.55rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: var(--font);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.btn-importar:hover {
+    background: var(--primary-dim);
+}
+
+/* ── Card Grid ── */
+#app {
+    padding: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.2rem;
+}
+
+.card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 1.3rem;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+    border: 1px solid var(--border);
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 102, 0, 0.12);
+    background: var(--surface-hover);
+}
+
+.card-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0.8rem;
+}
+
+.card-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.badge-tipo {
+    background: #fff0e6;
+    color: #cc5200;
+}
+
+.badge-dificuldade {
+    background: #e6f7ee;
+    color: #1a7a3a;
+}
+
+.badge-genero {
+    background: #e8f0fe;
+    color: #1a5bb5;
+}
+
+.badge-tag {
+    background: #f1f1f1;
+    color: var(--text-muted);
+}
+
+/* ── Empty State ── */
+.empty-state {
+    text-align: center;
+    color: var(--text-dim);
+    padding: 4rem 1rem;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.empty-state code {
+    background: #e8e8e8;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.stats {
+    text-align: center;
+    color: var(--text-dim);
+    padding: 0.8rem;
+    font-size: 0.85rem;
+}
+
+/* ── Viewer (Partitura) - Tela Completa ── */
+.viewer-body {
+    display: flex;
+    align-items: center;
+    min-height: calc(100vh - 160px);
+    background: var(--bg);
+    position: relative;
+}
+
+.viewer-img-container {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - 160px);
+    padding: 1rem;
+}
+
+.viewer-img-container img {
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.15s;
+    border-radius: 4px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.viewer-nav {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 2rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin: 0 0.5rem;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.viewer-nav:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.viewer-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+}
+
+.viewer-controls button {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.viewer-controls button:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.viewer-controls span {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    min-width: 50px;
+    text-align: center;
+}
+
+/* ── Cifra - Tela Completa ── */
+.cifra-body {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+.cifra-body h1 {
+    color: var(--primary);
+    font-size: 1.6rem;
+    margin-bottom: 0.3rem;
+}
+
+.cifra-body .artista {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.cifra-body pre {
+    font-family: var(--font-mono);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--surface);
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+}
+
+.cifra-body b {
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.cifra-body hr {
+    border-color: var(--border);
+    margin: 1rem 0;
+}
+
+.cifra-body .origem a {
+    color: var(--secondary);
+}
+
+/* ── Importar ── */
+.import-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+.import-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 1.5rem;
+}
+
+.import-tab {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+    font-family: var(--font);
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.15s;
+}
+
+.import-tab:hover {
+    color: var(--text);
+}
+
+.import-tab.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+.import-form {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+}
+
+.import-form.hidden {
+    display: none;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--primary);
+}
+
+.form-group input[type="file"] {
+    padding: 0.5rem;
+}
+
+.btn-primary {
+    width: 100%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: var(--font);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dim);
+}
+
+.import-status {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.import-status:empty {
+    display: none;
+}
+
+.import-status.loading {
+    background: #e8f0fe;
+    color: #1a5bb5;
+}
+
+.import-status.success {
+    background: #e6f7ee;
+    color: #1a7a3a;
+}
+
+.import-status.error {
+    background: #fde8e8;
+    color: #c53030;
+}
+
+.import-status code {
+    background: rgba(0, 0, 0, 0.08);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+/* ── Análise / Preview ── */
+.input-with-action {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.input-with-action input {
+    flex: 1;
+}
+
+.btn-secondary {
+    background: var(--bg);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: var(--font);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+}
+
+.btn-secondary:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.analise-box {
+    margin-bottom: 1.2rem;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    font-size: 0.9rem;
+}
+
+.analise-box.hidden {
+    display: none;
+}
+
+.analise-info p {
+    margin-bottom: 0.4rem;
+}
+
+.analise-info small {
+    color: var(--text-dim);
+}
+
+.analise-aviso {
+    margin-top: 0.8rem;
+    padding: 0.6rem 0.8rem;
+    background: #fff8e6;
+    border: 1px solid #f0d060;
+    border-radius: 6px;
+    color: #7a6000;
+    font-size: 0.85rem;
+}
+
+.analise-erro {
+    color: #c53030;
+}
+
+.analise-loading {
+    color: #1a5bb5;
+}
+
+.btn-forcar {
+    margin-top: 0.5rem;
+    background: var(--bg);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-family: var(--font);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.btn-forcar:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+    #header h1 { font-size: 1.6rem; }
+    #filters { padding: 0.8rem; gap: 0.5rem; }
+    #filters input[type="search"] { min-width: 100%; }
+    .card-grid { grid-template-columns: 1fr; }
+    .viewer-nav { width: 36px; height: 36px; font-size: 1.4rem; }
+    .tela-header { padding: 0.8rem 1rem; }
+    .import-container { padding: 0 1rem; }
+}

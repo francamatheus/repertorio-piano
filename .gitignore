@@ -1,0 +1,7 @@
+pdfs/
+__pycache__/
+*.pyc
+servidor.py
+adicionar_pdf.py
+adicionar_cifra.py
+.netlify

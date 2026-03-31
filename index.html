@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repertório Piano - Matheus França</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header id="header">
+        <a href="#" class="header-link">
+            <h1>Repertório Piano</h1>
+            <p>Matheus França</p>
+        </a>
+    </header>
+
+    <!-- Tela: Catálogo (lista) -->
+    <section id="tela-catalogo" class="tela">
+        <nav id="filters"></nav>
+        <main id="app">
+            <p class="empty-state">Carregando catálogo...</p>
+        </main>
+    </section>
+
+    <!-- Tela: Visualizador de Partitura -->
+    <section id="tela-viewer" class="tela hidden">
+        <div class="tela-header">
+            <button class="btn-voltar" onclick="navegarPara('catalogo')">&larr; Voltar</button>
+            <h2 id="viewer-titulo"></h2>
+            <span id="viewer-pagina"></span>
+        </div>
+        <div class="viewer-body">
+            <button class="viewer-nav viewer-prev" aria-label="Anterior">&lsaquo;</button>
+            <div class="viewer-img-container">
+                <img id="viewer-img" src="" alt="Partitura">
+            </div>
+            <button class="viewer-nav viewer-next" aria-label="Próxima">&rsaquo;</button>
+        </div>
+        <div class="viewer-controls">
+            <button id="zoom-out" aria-label="Diminuir zoom">&minus;</button>
+            <span id="zoom-level">100%</span>
+            <button id="zoom-in" aria-label="Aumentar zoom">&plus;</button>
+        </div>
+    </section>
+
+    <!-- Tela: Visualizador de Cifra -->
+    <section id="tela-cifra" class="tela hidden">
+        <div class="tela-header">
+            <button class="btn-voltar" onclick="navegarPara('catalogo')">&larr; Voltar</button>
+            <h2 id="cifra-titulo"></h2>
+        </div>
+        <div id="cifra-body" class="cifra-body"></div>
+    </section>
+
+    <!-- Tela: Importar -->
+    <section id="tela-importar" class="tela hidden">
+        <div class="tela-header">
+            <button class="btn-voltar" onclick="navegarPara('catalogo')">&larr; Voltar</button>
+            <h2>Importar Música</h2>
+        </div>
+        <div class="import-container">
+            <!-- Tab de importação -->
+            <div class="import-tabs">
+                <button class="import-tab active" data-tab="cifra">Importar Cifra (URL)</button>
+                <button class="import-tab" data-tab="pdf">Importar PDF</button>
+            </div>
+
+            <!-- Form: Importar Cifra -->
+            <form id="form-cifra" class="import-form">
+                <div class="form-group">
+                    <label for="cifra-url">URL do CifraClub ou BananaCifras</label>
+                    <div class="input-with-action">
+                        <input type="url" id="cifra-url" placeholder="https://www.cifraclub.com.br/artista/musica/" required>
+                        <button type="button" id="btn-analisar" class="btn-secondary">Analisar</button>
+                    </div>
+                </div>
+                <div id="analise-resultado" class="analise-box hidden"></div>
+                <div class="form-group">
+                    <label for="cifra-genero">Gênero</label>
+                    <select id="cifra-genero">
+                        <option value="auto">Auto-detectar</option>
+                        <option value="Gospel">Gospel</option>
+                        <option value="Pop">Pop</option>
+                        <option value="Rock">Rock</option>
+                        <option value="MPB">MPB</option>
+                        <option value="Clássico">Clássico</option>
+                        <option value="Jazz">Jazz</option>
+                        <option value="Blues">Blues</option>
+                        <option value="Bossa Nova">Bossa Nova</option>
+                        <option value="Samba">Samba</option>
+                        <option value="Eletrônica">Eletrônica</option>
+                        <option value="Trilha Sonora">Trilha Sonora</option>
+                        <option value="Anime/Game">Anime/Game</option>
+                        <option value="R&B/Soul">R&B/Soul</option>
+                        <option value="Country/Sertanejo">Country/Sertanejo</option>
+                        <option value="Funk">Funk</option>
+                        <option value="Reggae">Reggae</option>
+                        <option value="Folk">Folk</option>
+                        <option value="Hip-Hop">Hip-Hop</option>
+                        <option value="Metal">Metal</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cifra-dificuldade">Dificuldade</label>
+                    <select id="cifra-dificuldade">
+                        <option value="auto">Auto-detectar</option>
+                        <option value="Iniciante">Iniciante</option>
+                        <option value="Intermediário">Intermediário</option>
+                        <option value="Avançado">Avançado</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cifra-tags">Tags (separadas por vírgula)</label>
+                    <input type="text" id="cifra-tags" placeholder="Gospel, Adoração, etc.">
+                </div>
+                <button type="submit" class="btn-primary">Importar Cifra</button>
+                <div id="cifra-status" class="import-status"></div>
+            </form>
+
+            <!-- Form: Importar PDF -->
+            <form id="form-pdf" class="import-form hidden">
+                <div class="form-group">
+                    <label for="pdf-file">Arquivo PDF</label>
+                    <input type="file" id="pdf-file" accept=".pdf" required>
+                </div>
+                <div class="form-group">
+                    <label for="pdf-titulo">Título da música</label>
+                    <input type="text" id="pdf-titulo" placeholder="Nome da música" required>
+                </div>
+                <div class="form-group">
+                    <label for="pdf-compositor">Compositor</label>
+                    <input type="text" id="pdf-compositor" placeholder="Nome do compositor">
+                </div>
+                <div class="form-group">
+                    <label for="pdf-genero">Gênero</label>
+                    <select id="pdf-genero">
+                        <option value="auto">Auto-detectar</option>
+                        <option value="Gospel">Gospel</option>
+                        <option value="Pop">Pop</option>
+                        <option value="Rock">Rock</option>
+                        <option value="MPB">MPB</option>
+                        <option value="Clássico">Clássico</option>
+                        <option value="Jazz">Jazz</option>
+                        <option value="Blues">Blues</option>
+                        <option value="Bossa Nova">Bossa Nova</option>
+                        <option value="Samba">Samba</option>
+                        <option value="Eletrônica">Eletrônica</option>
+                        <option value="Trilha Sonora">Trilha Sonora</option>
+                        <option value="Anime/Game">Anime/Game</option>
+                        <option value="R&B/Soul">R&B/Soul</option>
+                        <option value="Country/Sertanejo">Country/Sertanejo</option>
+                        <option value="Funk">Funk</option>
+                        <option value="Reggae">Reggae</option>
+                        <option value="Folk">Folk</option>
+                        <option value="Hip-Hop">Hip-Hop</option>
+                        <option value="Metal">Metal</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pdf-dificuldade">Dificuldade</label>
+                    <select id="pdf-dificuldade">
+                        <option value="Iniciante">Iniciante</option>
+                        <option value="Intermediário">Intermediário</option>
+                        <option value="Avançado">Avançado</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pdf-tags">Tags (separadas por vírgula)</label>
+                    <input type="text" id="pdf-tags" placeholder="Piano, Solo, etc.">
+                </div>
+                <button type="submit" class="btn-primary">Importar PDF</button>
+                <div id="pdf-status" class="import-status"></div>
+            </form>
+        </div>
+    </section>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
