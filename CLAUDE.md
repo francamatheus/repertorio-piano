@@ -41,4 +41,4 @@ Scripts locais (`servidor.py`, `adicionar_pdf.py`, `adicionar_cifra.py`) são ut
 - Antes de qualquer mudança de comportamento ou UI, **pergunte ao Matheus** se há dúvida sobre a intenção. É preferível confirmar do que assumir.
 - O `catalogo.json` é a fonte de verdade — qualquer nova música deve ser adicionada lá.
 - PDFs ficam fora do git (`.gitignore`). Não commitar PDFs.
-- Após mudanças: `git add`, `git commit` e `git push` — o Netlify publica automaticamente.
+- Antes de commitar: sempre rodar `git pull` para evitar conflitos. Fluxo: `git pull` → `git add` → `git commit` → `git push`.
