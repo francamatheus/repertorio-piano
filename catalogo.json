@@ -4,6 +4,7 @@
     "titulo": "Coração Igual Ao Teu",
     "artista": "Diante do Trono",
     "dificuldade": "Iniciante",
+    "genero": "Gospel",
     "tipo": "Cifra",
     "tags": [
       "Gospel",
@@ -12,5 +13,77 @@
     "arquivo": "cifras/diante-do-trono-coracao-igual-ao-teu.html",
     "url_origem": "https://www.cifraclub.com.br/diante-do-trono/coracao-igual-ao-teu/",
     "data_adicionado": "2026-03-30T20:02:20.714327"
+  },
+  {
+    "id": "6e0468d0-e66e-474f-99aa-20dbe663e048",
+    "titulo": "November Rain",
+    "artista": "Guns N' Roses",
+    "genero": null,
+    "dificuldade": "Avançado",
+    "tipo": "Cifra",
+    "tags": [],
+    "arquivo": "cifras/guns-n-roses-november-rain.html",
+    "url_origem": "https://www.cifraclub.com.br/guns-n-roses/november-rain/#tabs=false&instrument=keyboard",
+    "data_adicionado": "2026-03-31T23:35:02.392571"
+  },
+  {
+    "id": "0b189cc9-d835-4715-a218-8dc648b9f260",
+    "titulo": "Take Me Home, Country Roads",
+    "artista": "John Denver",
+    "genero": "Country/Sertanejo",
+    "dificuldade": "Iniciante",
+    "tipo": "Cifra",
+    "tags": [],
+    "arquivo": "cifras/john-denver-take-me-home-country-roads.html",
+    "url_origem": "https://www.cifraclub.com.br/john-denver/take-me-home-country-roads/simplificada.html#tabs=false&instrument=keyboard",
+    "data_adicionado": "2026-03-31T23:35:16.072754"
+  },
+  {
+    "id": "bcbe5485-37e7-4725-aa97-0ec8985cc39f",
+    "titulo": "Digno É o Senhor (Worthy Is The Lamb)",
+    "artista": "Aline Barros",
+    "genero": "Gospel",
+    "dificuldade": "Intermediário",
+    "tipo": "Cifra",
+    "tags": [],
+    "arquivo": "cifras/aline-barros-digno-e-o-senhor-worthy-is-the-lamb.html",
+    "url_origem": "https://www.cifraclub.com.br/aline-barros/digno-o-senhor--/#tabs=false&instrument=keyboard",
+    "data_adicionado": "2026-03-31T23:35:46.963811"
+  },
+  {
+    "id": "705b0c6e-bbf4-41ce-93db-8cad09ea668b",
+    "titulo": "Sonda-me, Usa-me",
+    "artista": "Aline Barros",
+    "genero": "Gospel",
+    "dificuldade": "Avançado",
+    "tipo": "Cifra",
+    "tags": [],
+    "arquivo": "cifras/aline-barros-sonda-me-usa-me.html",
+    "url_origem": "https://www.cifraclub.com.br/aline-barros/sonda-me-usa-me/#instrument=keyboard&tabs=false",
+    "data_adicionado": "2026-03-31T23:35:57.887626"
+  },
+  {
+    "id": "be66d5a2-5ded-4455-91a4-aed8f33a93e6",
+    "titulo": "Nada Além do Sangue",
+    "artista": "Fernandinho",
+    "genero": "Gospel",
+    "dificuldade": "Intermediário",
+    "tipo": "Cifra",
+    "tags": [],
+    "arquivo": "cifras/fernandinho-nada-alem-do-sangue.html",
+    "url_origem": "https://www.cifraclub.com.br/fernandinho/nada-alem-do-sangue/simplificada.html#instrument=keyboard&tabs=false",
+    "data_adicionado": "2026-03-31T23:36:32.671099"
+  },
+  {
+    "id": "3baa81b4-9587-4a53-930b-0e2c5efcfc6b",
+    "titulo": "Aclame Ao Senhor",
+    "artista": "Diante do Trono",
+    "genero": "Gospel",
+    "dificuldade": "Avançado",
+    "tipo": "Cifra",
+    "tags": [],
+    "arquivo": "cifras/diante-do-trono-aclame-ao-senhor.html",
+    "url_origem": "https://www.cifraclub.com.br/diante-do-trono/aclame-ao-senhor/#tabs=false&instrument=keyboard",
+    "data_adicionado": "2026-03-31T23:36:44.771074"
   }
 ]

@@ -1,44 +1,46 @@
-# HandOff — 2026-03-31
+# HandOff — 2026-04-01
 
 ## O que foi feito nesta sessão
 
-- Criado `.gitignore` excluindo `pdfs/`, `__pycache__/`, `*.pyc`, `servidor.py`, `adicionar_pdf.py`, `adicionar_cifra.py`
-- `git init` + commit inicial com 7 arquivos
-- Criado repositório **público** no GitHub: `github.com/francamatheus/repertorio-piano`
-- Deploy no Netlify via CLI: site criado como `francaspianorepertory`
-- Conectado GitHub → Netlify para auto-deploy a cada push na `main` (testado e validado: deploy em ~4s)
-- Criado `CLAUDE.md` com contexto completo do projeto, infraestrutura e diretrizes
-- Instaladas 42 skills globais de dois repos: `ComposioHQ/awesome-claude-skills` e `obra/superpowers`
-- Criada skill global `/handoff` em `~/.claude/skills/handoff.md`
-- Marcadas como concluídas no Asana: tasks "Publicar no GitHub" e "Hospedar no Netlify" + todas as 8 subtasks
+- **Bug fix — músicas não apareciam localmente:** `servidor.py` passou a servir arquivos estáticos + API na mesma porta (8001). Antes só servia a API, então `fetch('catalogo.json')` falhava ao abrir como `file://`.
+- **Bug fix — campo `genero` faltando:** primeira entrada do `catalogo.json` ("Coração Igual Ao Teu") não tinha o campo `genero` — corrigido para `"Gospel"`.
+- **Bug fix — BananaCifras JS-rendered:** scraping com `requests` não funciona no site. Solução: campos de título/artista editáveis no formulário + mensagem de aviso quando scraping é incompleto.
+- **Melhoria — formulário de cifra:** adicionados campos de título/artista editáveis manualmente; validação de URL flexível (aceita qualquer site); API aceita `titulo`/`artista` como override.
+- **URLs da API corrigidas:** frontend apontava para `http://localhost:8001/api/` hardcoded — trocado para `/api/` relativo.
+- **Auto-deploy do Netlify pausado** (`stop_builds: true`) para economizar créditos do plano free.
+- **Asana:** task de React deletada; notas de prioridade e dependência adicionadas em Filtros e Testes Unitários; "Ajustes no formulário" atualizado com o que já foi feito.
+- **Skills globais instaladas:** 28 do `ComposioHQ/awesome-claude-skills` + 14 do `obra/superpowers` em `~/.claude/skills/`.
 
 ## Decisões tomadas
 
-- **Repo público** (era privado inicialmente): necessário para auto-deploy funcionar no plano gratuito do Netlify. Repo de repertório pessoal sem dados sensíveis — decisão ok.
-- **Deploy manual via CLI** foi substituído por **auto-deploy via GitHub** — não é mais necessário rodar `netlify deploy` manualmente.
-- **Skills instaladas globalmente** em `~/.claude/skills/` para evitar duplicação entre projetos.
+- **Servidor unificado na porta 8001:** serve site + API juntos. Acesse http://localhost:8001 para usar localmente.
+- **BananaCifras não tem solução de scraping** via requests (JS-rendered). Campos manuais no form resolvem sem Selenium/Playwright.
+- **Deploy manual por enquanto:** auto-deploy pausado no Netlify. Quando quiser publicar: `netlify deploy --dir=. --prod`. Reativar quando migrar para branch `develop`.
+- **React adiado indefinidamente:** não faz sentido agora com o projeto pequeno.
+- **Testes unitários:** só depois que o formulário de importação estabilizar.
 
 ## Estado atual
 
-- Site no ar: **https://francaspianorepertory.netlify.app**
-- Repo: **https://github.com/francamatheus/repertorio-piano** (público)
-- Auto-deploy funcionando: push na `main` → Netlify publica automaticamente
-- Asana: 2 tasks concluídas, 2 pendentes
+- Site local: **http://localhost:8001** (rodar `python3 servidor.py` na pasta do projeto)
+- Site público: **https://francaspianorepertory.netlify.app** (desatualizado — deploy pausado)
+- Catálogo local tem 7 músicas; arquivos locais ainda não foram pushados ao GitHub
 
-## Próximos passos (Asana pendente)
+## Próximos passos (por prioridade)
 
-1. **Ajustes no formulário de importação:**
-   - Remover botão "Analisar" separado — detecção de duplicatas/classificação deve rodar automaticamente ao clicar "Importar Cifra"
-   - Se duplicata detectada: exibir popup de confirmação antes de prosseguir
-   - Adicionar campo opcional "URL de referência" no formulário de PDF
-   - Exibir URL como link clicável na tela do viewer da partitura
-
-2. **Transformar em React** (task futura, sem subtasks ainda)
+1. **Bug — Filtros sem label** (ALTA, ~10min): prefixar opção padrão dos selects com o nome do filtro (ex: "Tipo: Todos", "Gênero: Todos")
+2. **Ajustes no formulário** (pendente):
+   - Remover botão "Analisar" — mesclar detecção no fluxo de "Importar Cifra"
+   - Popup de confirmação ao detectar duplicata
+   - Campo URL de referência no formulário de PDF
+   - Exibir URL como link no viewer de partitura
+3. **Fazer git push + deploy** das músicas importadas localmente
+4. **Testes unitários** (baixa prioridade, depois do formulário estabilizar)
 
 ## Contexto técnico relevante
 
+- Servidor roda na porta **8001** (não 8000) — serve site + API
 - Netlify site ID: `161a1c5c-a82d-4130-8c1e-8c38e5221bad`
-- Asana project GID: `1213886842273101` (projeto "Organização de Partituras / Cifras de Piano")
-- Scripts locais (`servidor.py`, `adicionar_pdf.py`, `adicionar_cifra.py`) estão no `.gitignore` — rodam apenas localmente para adicionar conteúdo ao `catalogo.json`
-- PDFs estão no `.gitignore` — não vão para o GitHub/Netlify
-- Repos de skills clonados em `~/awesome-claude-skills/` e `~/superpowers/` caso precise atualizar
+- Auto-deploy pausado: `stop_builds: true` via API do Netlify
+- Para reativar auto-deploy: `netlify api updateSite --data '{"site_id": "161a1c5c-a82d-4130-8c1e-8c38e5221bad", "body": {"build_settings": {"stop_builds": false}}}'`
+- Repos de skills: `~/awesome-claude-skills/` e `~/superpowers/`
+- Asana project GID: `1213886842273101`

@@ -247,8 +247,8 @@ function initAnalisarCifra() {
         const url = document.getElementById('cifra-url').value.trim();
         const resultado = document.getElementById('analise-resultado');
 
-        if (!url.includes('cifraclub.com.br') && !url.includes('bananacifras.com')) {
-            resultado.innerHTML = '<p class="analise-erro">URL inválida. Use CifraClub ou BananaCifras.</p>';
+        if (!url) {
+            resultado.innerHTML = '<p class="analise-erro">Informe a URL da cifra.</p>';
             resultado.classList.remove('hidden');
             return;
         }
@@ -259,7 +259,7 @@ function initAnalisarCifra() {
         resultado.classList.remove('hidden');
 
         try {
-            const resp = await fetch('http://localhost:8001/api/analisar-cifra', {
+            const resp = await fetch('/api/analisar-cifra', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ url }),
@@ -268,7 +268,12 @@ function initAnalisarCifra() {
 
             if (data.ok) {
                 let html = `<div class="analise-info">`;
-                html += `<p><strong>${data.titulo}</strong> — ${data.artista}</p>`;
+                if (data.scraping_incompleto) {
+                    html += `<p class="analise-aviso">Scraping incompleto — preencha título e artista manualmente nos campos abaixo.</p>`;
+                }
+                if (data.titulo || data.artista) {
+                    html += `<p><strong>${data.titulo || '(sem título)'}</strong> — ${data.artista || '(sem artista)'}</p>`;
+                }
                 html += `<p>Dificuldade sugerida: <span class="badge badge-dificuldade">${data.dificuldade_sugerida}</span>`;
                 if (data.detalhes_dificuldade) {
                     const d = data.detalhes_dificuldade;
@@ -290,7 +295,13 @@ function initAnalisarCifra() {
                 html += `</div>`;
                 resultado.innerHTML = html;
 
-                // Preencher selects com sugestões
+                // Preencher campos com sugestões
+                if (data.titulo) {
+                    document.getElementById('cifra-titulo').value = data.titulo;
+                }
+                if (data.artista) {
+                    document.getElementById('cifra-artista').value = data.artista;
+                }
                 if (data.dificuldade_sugerida) {
                     document.getElementById('cifra-dificuldade').value = data.dificuldade_sugerida;
                 }
@@ -316,13 +327,15 @@ function initFormCifra() {
         e.preventDefault();
         const status = document.getElementById('cifra-status');
         const url = document.getElementById('cifra-url').value.trim();
+        const titulo = document.getElementById('cifra-titulo').value.trim();
+        const artista = document.getElementById('cifra-artista').value.trim();
         const dificuldade = document.getElementById('cifra-dificuldade').value;
         const genero = document.getElementById('cifra-genero').value;
         const tagsStr = document.getElementById('cifra-tags').value.trim();
         const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(Boolean) : [];
 
-        if (!url.includes('cifraclub.com.br') && !url.includes('bananacifras.com')) {
-            status.textContent = 'URL inválida. Use CifraClub ou BananaCifras.';
+        if (!url) {
+            status.textContent = 'Informe a URL da cifra.';
             status.className = 'import-status error';
             return;
         }
@@ -331,10 +344,10 @@ function initFormCifra() {
         status.className = 'import-status loading';
 
         try {
-            const resp = await fetch('http://localhost:8001/api/cifra', {
+            const resp = await fetch('/api/cifra', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ url, dificuldade, genero, tags }),
+                body: JSON.stringify({ url, titulo, artista, dificuldade, genero, tags }),
             });
             const data = await resp.json();
             if (data.ok) {
@@ -366,6 +379,8 @@ function initFormCifra() {
 async function forcarImportCifra() {
     const status = document.getElementById('cifra-status');
     const url = document.getElementById('cifra-url').value.trim();
+    const titulo = document.getElementById('cifra-titulo').value.trim();
+    const artista = document.getElementById('cifra-artista').value.trim();
     const dificuldade = document.getElementById('cifra-dificuldade').value;
     const genero = document.getElementById('cifra-genero').value;
     const tagsStr = document.getElementById('cifra-tags').value.trim();
@@ -375,10 +390,10 @@ async function forcarImportCifra() {
     status.className = 'import-status loading';
 
     try {
-        const resp = await fetch('http://localhost:8001/api/cifra', {
+        const resp = await fetch('/api/cifra', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ url, dificuldade, genero, tags, forcar: true }),
+            body: JSON.stringify({ url, titulo, artista, dificuldade, genero, tags, forcar: true }),
         });
         const data = await resp.json();
         if (data.ok) {
@@ -424,7 +439,7 @@ function initFormPdf() {
         formData.append('tags', JSON.stringify(tags));
 
         try {
-            const resp = await fetch('http://localhost:8001/api/pdf', {
+            const resp = await fetch('/api/pdf', {
                 method: 'POST',
                 body: formData,
             });
