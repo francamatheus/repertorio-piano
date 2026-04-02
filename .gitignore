@@ -1,4 +1,5 @@
 pdfs/
+logs/
 __pycache__/
 *.pyc
 servidor.py
