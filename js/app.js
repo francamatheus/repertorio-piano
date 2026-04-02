@@ -254,12 +254,21 @@ function initAnalisarCifra() {
     btn.addEventListener('click', async () => {
         const url = document.getElementById('cifra-url').value.trim();
         const resultado = document.getElementById('analise-resultado');
+        const btnImport = document.querySelector('#form-cifra .btn-primary');
 
         if (!url) {
             resultado.innerHTML = '<p class="analise-erro">Informe a URL da cifra.</p>';
             resultado.classList.remove('hidden');
             return;
         }
+
+        // Limpar campos antes de nova análise
+        document.getElementById('cifra-titulo').value = '';
+        document.getElementById('cifra-artista').value = '';
+        document.getElementById('cifra-dificuldade').value = 'auto';
+        document.getElementById('cifra-genero').value = 'auto';
+        document.getElementById('cifra-tags').value = '';
+        if (btnImport) btnImport.disabled = true;
 
         btn.disabled = true;
         btn.textContent = 'Analisando...';
@@ -276,6 +285,12 @@ function initAnalisarCifra() {
 
             if (data.ok) {
                 let html = `<div class="analise-info">`;
+
+                // Alerta de instrumento (BananaCifras)
+                if (data.instrumento_alerta) {
+                    html += `<p class="analise-aviso">Este link é para <strong>${data.instrumento_alerta}</strong>, não para teclado. Verifique se deseja importar mesmo assim.</p>`;
+                }
+
                 if (data.scraping_incompleto) {
                     html += `<p class="analise-aviso">Scraping incompleto — preencha título e artista manualmente nos campos abaixo.</p>`;
                 }
@@ -316,6 +331,9 @@ function initAnalisarCifra() {
                 if (data.genero_sugerido) {
                     document.getElementById('cifra-genero').value = data.genero_sugerido;
                 }
+
+                // Habilitar botão de importar após análise bem-sucedida
+                validarBtnImport();
             } else {
                 resultado.innerHTML = `<p class="analise-erro">Erro: ${data.erro}</p>`;
             }
@@ -328,8 +346,26 @@ function initAnalisarCifra() {
     });
 }
 
+function validarBtnImport() {
+    const btnImport = document.querySelector('#form-cifra .btn-primary');
+    if (!btnImport) return;
+    const titulo = document.getElementById('cifra-titulo').value.trim();
+    const artista = document.getElementById('cifra-artista').value.trim();
+    btnImport.disabled = !(titulo && artista);
+}
+
 function initFormCifra() {
     initAnalisarCifra();
+
+    // Botão importar começa desabilitado — precisa analisar primeiro
+    const btnImport = document.querySelector('#form-cifra .btn-primary');
+    if (btnImport) btnImport.disabled = true;
+
+    // Revalidar ao digitar nos campos de título/artista
+    ['cifra-titulo', 'cifra-artista'].forEach(id => {
+        const input = document.getElementById(id);
+        if (input) input.addEventListener('input', validarBtnImport);
+    });
 
     document.getElementById('form-cifra').addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -366,6 +402,7 @@ function initFormCifra() {
                 status.className = 'import-status success';
                 document.getElementById('form-cifra').reset();
                 document.getElementById('analise-resultado').classList.add('hidden');
+                if (btnImport) btnImport.disabled = true;
                 await carregarCatalogo();
             } else if (data.erro === 'duplicata') {
                 const dup = data.duplicata;
@@ -409,6 +446,8 @@ async function forcarImportCifra() {
             status.className = 'import-status success';
             document.getElementById('form-cifra').reset();
             document.getElementById('analise-resultado').classList.add('hidden');
+            const btnImportForcar = document.querySelector('#form-cifra .btn-primary');
+            if (btnImportForcar) btnImportForcar.disabled = true;
             await carregarCatalogo();
         } else {
             status.textContent = `Erro: ${data.erro}`;
