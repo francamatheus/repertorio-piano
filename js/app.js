@@ -37,9 +37,9 @@ function navegarPara(tela, dados) {
 
 function getFiltrosAtuais() {
     return {
-        tipo: document.getElementById('filtro-tipo')?.value || 'Todos',
-        genero: document.getElementById('filtro-genero')?.value || 'Todos',
-        dificuldade: document.getElementById('filtro-dificuldade')?.value || 'Todas',
+        tipo: document.getElementById('filtro-tipo')?.value || '',
+        genero: document.getElementById('filtro-genero')?.value || '',
+        dificuldade: document.getElementById('filtro-dificuldade')?.value || '',
         busca: document.getElementById('filtro-busca')?.value || '',
     };
 }
@@ -47,9 +47,9 @@ function getFiltrosAtuais() {
 function filtrar(catalogo, filtros) {
     const busca = removerAcentos(filtros.busca.toLowerCase());
     return catalogo.filter(item => {
-        if (filtros.tipo !== 'Todos' && item.tipo !== filtros.tipo) return false;
-        if (filtros.genero !== 'Todos' && item.genero !== filtros.genero) return false;
-        if (filtros.dificuldade !== 'Todas' && item.dificuldade !== filtros.dificuldade) return false;
+        if (filtros.tipo && item.tipo !== filtros.tipo) return false;
+        if (filtros.genero && item.genero !== filtros.genero) return false;
+        if (filtros.dificuldade && item.dificuldade !== filtros.dificuldade) return false;
         if (busca) {
             const titulo = removerAcentos((item.titulo || '').toLowerCase());
             const artista = removerAcentos((item.artista || item.compositor || '').toLowerCase());
@@ -61,15 +61,23 @@ function filtrar(catalogo, filtros) {
 
 // ── Filter Rendering ──
 
-function criarSelect(id, label, opcoes) {
+function criarSelect(id, ariaLabel, filtro) {
     const select = el('select');
     select.id = id;
-    select.setAttribute('aria-label', label);
-    opcoes.forEach(op => {
-        const option = el('option', null, op);
-        option.value = op;
+    select.setAttribute('aria-label', ariaLabel);
+
+    // Opção "All" com label descritivo (ex: "Todos os Gêneros")
+    const allOption = el('option', null, filtro.all.label);
+    allOption.value = filtro.all.value;
+    select.appendChild(allOption);
+
+    // Opções individuais
+    filtro.opcoes.forEach(op => {
+        const option = el('option', null, op.label);
+        option.value = op.value;
         select.appendChild(option);
     });
+
     return select;
 }
 
@@ -79,9 +87,9 @@ function renderFiltros() {
     const nav = document.getElementById('filters');
     nav.innerHTML = '';
 
-    const selectTipo = criarSelect('filtro-tipo', 'Filtrar por tipo', TIPOS);
-    const selectGenero = criarSelect('filtro-genero', 'Filtrar por gênero', GENEROS);
-    const selectDific = criarSelect('filtro-dificuldade', 'Filtrar por dificuldade', DIFICULDADES);
+    const selectTipo = criarSelect('filtro-tipo', 'Filtrar por tipo', FILTROS.tipo);
+    const selectGenero = criarSelect('filtro-genero', 'Filtrar por gênero', FILTROS.genero);
+    const selectDific = criarSelect('filtro-dificuldade', 'Filtrar por dificuldade', FILTROS.dificuldade);
 
     const inputBusca = el('input');
     inputBusca.type = 'search';
