@@ -495,13 +495,32 @@ body {
     transition: background 0.15s;
 }
 
-.btn-primary:hover:not(:disabled) {
+.btn-primary:hover {
     background: var(--primary-dim);
 }
 
-.btn-primary:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+/* ── Campos ocultos (expandem após análise) ── */
+.campos-cifra {
+    animation: fadeIn 0.2s ease;
+}
+
+.campos-cifra.hidden {
+    display: none;
+}
+
+/* ── Erros de validação ── */
+.import-erros {
+    margin-top: 0.6rem;
+    font-size: 0.9rem;
+}
+
+.import-erros:empty {
+    display: none;
+}
+
+.import-erros p {
+    color: #c53030;
+    margin-bottom: 0.3rem;
 }
 
 .import-status {

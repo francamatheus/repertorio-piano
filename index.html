@@ -75,54 +75,57 @@
                     </div>
                 </div>
                 <div id="analise-resultado" class="analise-box hidden"></div>
-                <div class="form-group">
-                    <label for="cifra-titulo">Título</label>
-                    <input type="text" id="cifra-titulo" placeholder="Preenchido automaticamente ou digite manualmente">
-                </div>
-                <div class="form-group">
-                    <label for="cifra-artista">Artista</label>
-                    <input type="text" id="cifra-artista" placeholder="Preenchido automaticamente ou digite manualmente">
-                </div>
-                <div class="form-group">
-                    <label for="cifra-genero">Gênero</label>
-                    <select id="cifra-genero">
-                        <option value="auto">Auto-detectar</option>
-                        <option value="Gospel">Gospel</option>
-                        <option value="Pop">Pop</option>
-                        <option value="Rock">Rock</option>
-                        <option value="MPB">MPB</option>
-                        <option value="Clássico">Clássico</option>
-                        <option value="Jazz">Jazz</option>
-                        <option value="Blues">Blues</option>
-                        <option value="Bossa Nova">Bossa Nova</option>
-                        <option value="Samba">Samba</option>
-                        <option value="Eletrônica">Eletrônica</option>
-                        <option value="Trilha Sonora">Trilha Sonora</option>
-                        <option value="Anime/Game">Anime/Game</option>
-                        <option value="R&B/Soul">R&B/Soul</option>
-                        <option value="Country/Sertanejo">Country/Sertanejo</option>
-                        <option value="Funk">Funk</option>
-                        <option value="Reggae">Reggae</option>
-                        <option value="Folk">Folk</option>
-                        <option value="Hip-Hop">Hip-Hop</option>
-                        <option value="Metal">Metal</option>
-                        <option value="Outro">Outro</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="cifra-dificuldade">Dificuldade</label>
-                    <select id="cifra-dificuldade">
-                        <option value="auto">Auto-detectar</option>
-                        <option value="Iniciante">Iniciante</option>
-                        <option value="Intermediário">Intermediário</option>
-                        <option value="Avançado">Avançado</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="cifra-tags">Tags (separadas por vírgula)</label>
-                    <input type="text" id="cifra-tags" placeholder="Gospel, Adoração, etc.">
+                <div id="campos-cifra" class="campos-cifra hidden">
+                    <div class="form-group">
+                        <label for="cifra-titulo">Título</label>
+                        <input type="text" id="cifra-titulo" placeholder="Digite o título">
+                    </div>
+                    <div class="form-group">
+                        <label for="cifra-artista">Artista</label>
+                        <input type="text" id="cifra-artista" placeholder="Digite o artista">
+                    </div>
+                    <div class="form-group">
+                        <label for="cifra-genero">Gênero</label>
+                        <select id="cifra-genero">
+                            <option value="">- Selecione -</option>
+                            <option value="Gospel">Gospel</option>
+                            <option value="Pop">Pop</option>
+                            <option value="Rock">Rock</option>
+                            <option value="MPB">MPB</option>
+                            <option value="Clássico">Clássico</option>
+                            <option value="Jazz">Jazz</option>
+                            <option value="Blues">Blues</option>
+                            <option value="Bossa Nova">Bossa Nova</option>
+                            <option value="Samba">Samba</option>
+                            <option value="Eletrônica">Eletrônica</option>
+                            <option value="Trilha Sonora">Trilha Sonora</option>
+                            <option value="Anime/Game">Anime/Game</option>
+                            <option value="R&B/Soul">R&B/Soul</option>
+                            <option value="Country/Sertanejo">Country/Sertanejo</option>
+                            <option value="Funk">Funk</option>
+                            <option value="Reggae">Reggae</option>
+                            <option value="Folk">Folk</option>
+                            <option value="Hip-Hop">Hip-Hop</option>
+                            <option value="Metal">Metal</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="cifra-dificuldade">Dificuldade</label>
+                        <select id="cifra-dificuldade">
+                            <option value="">- Selecione -</option>
+                            <option value="Iniciante">Iniciante</option>
+                            <option value="Intermediário">Intermediário</option>
+                            <option value="Avançado">Avançado</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="cifra-tags">Tags (separadas por vírgula)</label>
+                        <input type="text" id="cifra-tags" placeholder="Gospel, Adoração, etc.">
+                    </div>
                 </div>
                 <button type="submit" class="btn-primary">Importar Cifra</button>
+                <div id="cifra-erros" class="import-erros"></div>
                 <div id="cifra-status" class="import-status"></div>
             </form>
 

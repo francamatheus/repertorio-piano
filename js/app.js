@@ -247,6 +247,34 @@ function initImportTabs() {
     });
 }
 
+// ── Estado do formulário de cifra ──
+
+let cifraAnaliseOk = false;
+
+function resetFormCifra() {
+    cifraAnaliseOk = false;
+    document.getElementById('campos-cifra').classList.add('hidden');
+    document.getElementById('analise-resultado').classList.add('hidden');
+    document.getElementById('cifra-erros').innerHTML = '';
+    document.getElementById('cifra-status').textContent = '';
+    document.getElementById('cifra-status').className = 'import-status';
+    document.getElementById('cifra-titulo').value = '';
+    document.getElementById('cifra-artista').value = '';
+    document.getElementById('cifra-dificuldade').value = '';
+    document.getElementById('cifra-genero').value = '';
+    document.getElementById('cifra-tags').value = '';
+}
+
+function validarFormCifra() {
+    const erros = [];
+    if (!cifraAnaliseOk) erros.push('Clique em "Analisar" antes de importar.');
+    if (!document.getElementById('cifra-titulo').value.trim()) erros.push('Título é obrigatório.');
+    if (!document.getElementById('cifra-artista').value.trim()) erros.push('Artista é obrigatório.');
+    if (!document.getElementById('cifra-genero').value) erros.push('Gênero é obrigatório.');
+    if (!document.getElementById('cifra-dificuldade').value) erros.push('Dificuldade é obrigatória.');
+    return erros;
+}
+
 function initAnalisarCifra() {
     const btn = document.getElementById('btn-analisar');
     if (!btn) return;
@@ -254,7 +282,6 @@ function initAnalisarCifra() {
     btn.addEventListener('click', async () => {
         const url = document.getElementById('cifra-url').value.trim();
         const resultado = document.getElementById('analise-resultado');
-        const btnImport = document.querySelector('#form-cifra .btn-primary');
 
         if (!url) {
             resultado.innerHTML = '<p class="analise-erro">Informe a URL da cifra.</p>';
@@ -262,13 +289,15 @@ function initAnalisarCifra() {
             return;
         }
 
-        // Limpar campos antes de nova análise
+        // Resetar estado antes de nova análise
+        cifraAnaliseOk = false;
+        document.getElementById('campos-cifra').classList.add('hidden');
+        document.getElementById('cifra-erros').innerHTML = '';
         document.getElementById('cifra-titulo').value = '';
         document.getElementById('cifra-artista').value = '';
-        document.getElementById('cifra-dificuldade').value = 'auto';
-        document.getElementById('cifra-genero').value = 'auto';
+        document.getElementById('cifra-dificuldade').value = '';
+        document.getElementById('cifra-genero').value = '';
         document.getElementById('cifra-tags').value = '';
-        if (btnImport) btnImport.disabled = true;
 
         btn.disabled = true;
         btn.textContent = 'Analisando...';
@@ -284,6 +313,16 @@ function initAnalisarCifra() {
             const data = await resp.json();
 
             if (data.ok) {
+                // Verificar se a cifra foi encontrada
+                if (data.cifra_encontrada === false) {
+                    resultado.innerHTML = '<p class="analise-erro">Cifra não encontrada nessa URL. Verifique o link e tente novamente.</p>';
+                    btn.disabled = false;
+                    btn.textContent = 'Analisar';
+                    return;
+                }
+
+                cifraAnaliseOk = true;
+
                 let html = `<div class="analise-info">`;
 
                 // Alerta de instrumento (BananaCifras)
@@ -292,7 +331,7 @@ function initAnalisarCifra() {
                 }
 
                 if (data.scraping_incompleto) {
-                    html += `<p class="analise-aviso">Scraping incompleto — preencha título e artista manualmente nos campos abaixo.</p>`;
+                    html += `<p class="analise-aviso">Scraping incompleto — preencha os campos vazios manualmente abaixo.</p>`;
                 }
                 if (data.titulo || data.artista) {
                     html += `<p><strong>${data.titulo || '(sem título)'}</strong> — ${data.artista || '(sem artista)'}</p>`;
@@ -318,22 +357,14 @@ function initAnalisarCifra() {
                 html += `</div>`;
                 resultado.innerHTML = html;
 
-                // Preencher campos com sugestões
-                if (data.titulo) {
-                    document.getElementById('cifra-titulo').value = data.titulo;
-                }
-                if (data.artista) {
-                    document.getElementById('cifra-artista').value = data.artista;
-                }
-                if (data.dificuldade_sugerida) {
-                    document.getElementById('cifra-dificuldade').value = data.dificuldade_sugerida;
-                }
-                if (data.genero_sugerido) {
-                    document.getElementById('cifra-genero').value = data.genero_sugerido;
-                }
+                // Preencher campos com sugestões (vazio se não pegou)
+                document.getElementById('cifra-titulo').value = data.titulo || '';
+                document.getElementById('cifra-artista').value = data.artista || '';
+                document.getElementById('cifra-dificuldade').value = data.dificuldade_sugerida || '';
+                document.getElementById('cifra-genero').value = data.genero_sugerido || '';
 
-                // Habilitar botão de importar após análise bem-sucedida
-                validarBtnImport();
+                // Expandir campos
+                document.getElementById('campos-cifra').classList.remove('hidden');
             } else {
                 resultado.innerHTML = `<p class="analise-erro">Erro: ${data.erro}</p>`;
             }
@@ -346,30 +377,24 @@ function initAnalisarCifra() {
     });
 }
 
-function validarBtnImport() {
-    const btnImport = document.querySelector('#form-cifra .btn-primary');
-    if (!btnImport) return;
-    const titulo = document.getElementById('cifra-titulo').value.trim();
-    const artista = document.getElementById('cifra-artista').value.trim();
-    btnImport.disabled = !(titulo && artista);
-}
-
 function initFormCifra() {
     initAnalisarCifra();
 
-    // Botão importar começa desabilitado — precisa analisar primeiro
-    const btnImport = document.querySelector('#form-cifra .btn-primary');
-    if (btnImport) btnImport.disabled = true;
-
-    // Revalidar ao digitar nos campos de título/artista
-    ['cifra-titulo', 'cifra-artista'].forEach(id => {
-        const input = document.getElementById(id);
-        if (input) input.addEventListener('input', validarBtnImport);
-    });
-
     document.getElementById('form-cifra').addEventListener('submit', async (e) => {
         e.preventDefault();
+        const errosDiv = document.getElementById('cifra-erros');
         const status = document.getElementById('cifra-status');
+
+        // Validação
+        const erros = validarFormCifra();
+        if (erros.length > 0) {
+            errosDiv.innerHTML = erros.map(e => `<p>${e}</p>`).join('');
+            status.textContent = '';
+            status.className = 'import-status';
+            return;
+        }
+        errosDiv.innerHTML = '';
+
         const url = document.getElementById('cifra-url').value.trim();
         const titulo = document.getElementById('cifra-titulo').value.trim();
         const artista = document.getElementById('cifra-artista').value.trim();
@@ -377,12 +402,6 @@ function initFormCifra() {
         const genero = document.getElementById('cifra-genero').value;
         const tagsStr = document.getElementById('cifra-tags').value.trim();
         const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(Boolean) : [];
-
-        if (!url) {
-            status.textContent = 'Informe a URL da cifra.';
-            status.className = 'import-status error';
-            return;
-        }
 
         status.textContent = 'Importando cifra...';
         status.className = 'import-status loading';
@@ -400,9 +419,9 @@ function initFormCifra() {
                 if (data.genero) msg += ` [${data.genero}]`;
                 status.textContent = msg;
                 status.className = 'import-status success';
-                document.getElementById('form-cifra').reset();
-                document.getElementById('analise-resultado').classList.add('hidden');
-                if (btnImport) btnImport.disabled = true;
+                resetFormCifra();
+                status.textContent = msg;
+                status.className = 'import-status success';
                 await carregarCatalogo();
             } else if (data.erro === 'duplicata') {
                 const dup = data.duplicata;
@@ -442,12 +461,10 @@ async function forcarImportCifra() {
         });
         const data = await resp.json();
         if (data.ok) {
-            status.textContent = `Cifra "${data.titulo}" importada com sucesso!`;
+            let msg = `Cifra "${data.titulo}" importada com sucesso!`;
+            resetFormCifra();
+            status.textContent = msg;
             status.className = 'import-status success';
-            document.getElementById('form-cifra').reset();
-            document.getElementById('analise-resultado').classList.add('hidden');
-            const btnImportForcar = document.querySelector('#form-cifra .btn-primary');
-            if (btnImportForcar) btnImportForcar.disabled = true;
             await carregarCatalogo();
         } else {
             status.textContent = `Erro: ${data.erro}`;
