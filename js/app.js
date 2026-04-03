@@ -179,6 +179,16 @@ let viewerState = { imagens: [], pagina: 0, zoom: 1 };
 function abrirViewer(item) {
     viewerState = { imagens: item.imagens || [], pagina: 0, zoom: 1 };
     document.getElementById('viewer-titulo').textContent = item.titulo;
+
+    const ref = document.getElementById('viewer-referencia');
+    if (item.url_referencia) {
+        ref.innerHTML = `Referência: <a href="${item.url_referencia}" target="_blank" rel="noopener">${item.url_referencia}</a>`;
+        ref.classList.remove('hidden');
+    } else {
+        ref.innerHTML = '';
+        ref.classList.add('hidden');
+    }
+
     atualizarViewer();
     navegarPara('viewer');
 }
@@ -488,6 +498,7 @@ function initFormPdf() {
         const compositor = document.getElementById('pdf-compositor').value.trim();
         const genero = document.getElementById('pdf-genero').value;
         const dificuldade = document.getElementById('pdf-dificuldade').value;
+        const urlReferencia = document.getElementById('pdf-url-referencia').value.trim();
         const tagsStr = document.getElementById('pdf-tags').value.trim();
         const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(Boolean) : [];
 
@@ -499,6 +510,7 @@ function initFormPdf() {
         formData.append('titulo', titulo);
         formData.append('compositor', compositor);
         formData.append('genero', genero);
+        if (urlReferencia) formData.append('url_referencia', urlReferencia);
         formData.append('dificuldade', dificuldade);
         formData.append('tags', JSON.stringify(tags));
 

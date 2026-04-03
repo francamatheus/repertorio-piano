@@ -499,6 +499,26 @@ body {
     background: var(--primary-dim);
 }
 
+/* ── Label opcional ── */
+.label-opcional {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: normal;
+    margin-left: 0.3rem;
+}
+
+/* ── Referência no viewer de partitura ── */
+.viewer-referencia {
+    text-align: center;
+    font-size: 0.85rem;
+    padding: 0.4rem 1rem;
+    color: var(--text-muted);
+}
+
+.viewer-referencia a {
+    color: var(--primary);
+}
+
 /* ── Campos ocultos (expandem após análise) ── */
 .campos-cifra {
     animation: fadeIn 0.2s ease;

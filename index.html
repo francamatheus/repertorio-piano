@@ -29,6 +29,7 @@
             <h2 id="viewer-titulo"></h2>
             <span id="viewer-pagina"></span>
         </div>
+        <div id="viewer-referencia" class="viewer-referencia hidden"></div>
         <div class="viewer-body">
             <button class="viewer-nav viewer-prev" aria-label="Anterior">&lsaquo;</button>
             <div class="viewer-img-container">
@@ -176,6 +177,10 @@
                         <option value="Intermediário">Intermediário</option>
                         <option value="Avançado">Avançado</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="pdf-url-referencia">URL de referência <span class="label-opcional">(opcional)</span></label>
+                    <input type="url" id="pdf-url-referencia" placeholder="https://...">
                 </div>
                 <div class="form-group">
                     <label for="pdf-tags">Tags (separadas por vírgula)</label>
