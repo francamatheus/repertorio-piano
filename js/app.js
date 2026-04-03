@@ -97,9 +97,11 @@ function renderFiltros() {
     inputBusca.placeholder = 'Buscar por título ou artista...';
     inputBusca.setAttribute('aria-label', 'Buscar músicas');
 
-    // Botão de importar
+    // Botão de importar (apenas local)
+    const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
     const btnImportar = el('button', 'btn-importar', '+ Importar');
     btnImportar.addEventListener('click', () => navegarPara('importar'));
+    if (!isLocal) btnImportar.style.display = 'none';
 
     const atualizar = () => renderCards(filtrar(CATALOGO, getFiltrosAtuais()));
 
@@ -227,7 +229,7 @@ function aplicarZoom(delta) {
 // ── Tela: Cifra ──
 
 async function abrirCifra(item) {
-    document.getElementById('cifra-titulo').textContent = item.titulo;
+    document.getElementById('cifra-viewer-titulo').textContent = item.titulo;
     const body = document.getElementById('cifra-body');
 
     try {
