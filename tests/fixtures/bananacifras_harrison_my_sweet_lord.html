@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<script>INST_ID=5;DIST_ID=0;SEARCHV="85404a19a1a9ccc2953fa7164d6ae01c";IPA=1;bananajs=[];</script>
+<script src='/js/song.js?v=b029e40a&hl=pt-BR' async referrerpolicy='no-referrer'></script>
+<link rel="preload" href="/dist/font/fa-solid-900.woff2?v=91671f7c" as="font" type="font/woff2" crossorigin>
+<meta property="og:image" content="https://cifra.b-cdn.net/share.jpg">
+<title>My sweet lord TECLADO George Harrison</title>
+<link rel="stylesheet" href="/dist/css/tab.css?v=929d188">
+<link rel="icon" href="https://cifra.b-cdn.net/ico.png">
+<meta name="mobile-web-app-capable" content="yes">
+</head>
+<body class="Dark">
+<nav>
+  <a class="logo" href="/" data-google-interstitial="false">
+    <img src="https://cifra.b-cdn.net/public/img/logo/amarelo.png" height="40" width="80" alt="TECLADO">
+  </a>
+  <div class="text-buttons">
+  <a href="/menu" data-google-interstitial="false">Menu principal</a>
+  <a href="#searchMusic">Pesquisar música</a>
+  <a href="/teclado/trending">Em alta</a>
+  <a href="/teclado/genres">Gêneros</a>
+  <a href="/history" rel="nofollow">Histórico</a>
+  <a href="/tuner">Afinador online</a>
+  <a href="/account/create" rel="nofollow" data-google-interstitial="false">Cadastre-se</a>
+  <a href="/account/login" rel="nofollow" data-google-interstitial="false">Entrar</a>
+  </div>
+  <div class="buttons">
+  <a href="/history" title="Histórico" rel="nofollow"><i class="ico fa fa-clock-rotate-left"></i></a>
+  <a href="/account/create" title="Repertórios" rel="nofollow"><i class="ico fa fa-folder-open"></i></a>
+  <a href="#searchMusic" title="Pesquisar música"><i class="ico fa fa-magnifying-glass"></i></a>
+  <a href="/menu" title="Menu principal" data-google-interstitial="false"><i class="ico fa fa-bars"></i></a>
+  </div>
+</nav>
+<div id="song-header" class="row g-0 d-print-none">
+  <div class="col-12 col-md-6 col-xl-3">
+    <div class="l chevron notranslate">
+      <a href="/teclado/g/george-harrison">
+        <img src="https://cifra.b-cdn.net/a/george-harrison.jpg" width="50" height="50" alt="george-harrison" decoding="async">
+        <span>George Harrison
+        <span>150</span></span>
+      </a>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-3">
+    <div class="l chevron notranslate">
+      <a href="/teclado/my-sweet-lord">
+        <img src="https://cifra.b-cdn.net/ico.png" width="50" height="50" alt="bananacifras">
+        <span>My sweet lord
+        <span>13</span></span>
+      </a>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-3">
+    <div class="l">
+      <a href="#saveSongToPlaylist">
+        <span>Salvar em...
+        <span>Repertórios</span></span>
+        <i class="ico fa fa-heart" data-liked="" id="data-like" data-onclick="#likeSong"></i>
+        <i class="ico fa fa-share-nodes purple share-el d-none" data-onclick="#shareURL"></i>
+      </a>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-3">
+    <div class="l chevron">
+      <a href="#instrumentPicker">
+        <span>Instrumento
+        <span>Teclado</span></span>
+      </a>
+    </div>
+  </div>
+</div>
+<div id="song-tools" class="row g-0 d-print-none">
+<div class="col-12 col-md-6 col-xl-3">
+  <div class="l">
+    <div>
+      <span>Mudar tom <span id="current-tone"></span> <div id="tone-changed-by"></div></span>
+      <a href="#transposeReset" class="ico fa fa-arrow-rotate-left primary d-none"></a>
+      <a href="#transposeDown" class="ico fa fa-arrow-down"></a>
+      <a href="#transposeUp" class="ico fa fa-arrow-up"></a>
+    </div>
+  </div>
+</div>
+<div class="col-12 col-md-6 col-xl-3">
+  <div class="l">
+    <div>
+      <span>Tamanho da fonte <div id="font-changed-by" data-default="14"></div></span>
+      <a href="#fontSizeDown" class="ico fa fa-minus"></a>
+      <a href="#fontSizeUp" class="ico fa fa-plus"></a>
+    </div>
+  </div>
+</div>
+<div class="col-12 col-md-6 col-xl-3 col-split-tab">
+  <div class="l">
+    <a href="#splitTab">
+      <span>Dividir em colunas</span>
+      <div class="ico" data-onclick="#splitTab" style="font-family:inherit">1</div>
+    </a>
+  </div>
+</div>
+<div class="col-12 col-md-6 col-xl-3">
+  <div class="l">
+    <a href="#toggleShowTabs">
+      <span>Mostrar tablaturas</span>
+      <div class="ico htabs danger" style="font-family:inherit">Não</div>
+    </a>
+  </div>
+</div>
+</div>
+<div class="l inline song-buttons">
+  <a href="#simplifyTab" data-href="/simplificada/g/george-harrison/my-sweet-lord" data-label-attr="Simplificar"><i class="fa fa-arrow-right" style="font-size:inherit;margin-left:2px"></i></a>
+  <a href="#show_tab_versions">Versão&nbsp;(5)</a>
+  <a href="#editTab">Editar</a>
+  <a href="#initPrinter">Imprimir</a>
+  <a href="#initAutoScroll" class="d-none d-sm-flex">Rolagem automática</a>
+</div>
+<div class="l inline song-buttons d-sm-none">
+  <a href="#enableNoSleep">Manter tela ligada<input type="checkbox" readonly></a>
+  <a href="#initAutoScroll">Rolagem automática</a>
+</div>
+<div id="song-content" style="font-size:14px" class="hide_tabs">
+  <div id="song-capo" data-onclick="#capo_picker"></div>
+  <pre id="song-pre" data-split="1" class="notranslate"></pre>
+</div>
+<script>bananajs.push({"callback":"format_tab","json":"/json/tab.js?id=123354&v=c54bb284a8db5175e0acc2011b7c60df"})</script>
+<div id='gpt-div-ad-0' class='adsbanana noempty-mt60 d-print-none'
+ style='display:block;'
+ data-fb='1'
+ data-refresh='21'
+ data-size='970:970x250,300x250,336x280,320x480 300:300x250,336x280,320x480'
+ data-unit='/404213072/bananacifras'
+ data-ad-expansion='true'></div>
+<div id="song-chords"></div>
+<div class=' init3 d-print-none chevron mt-60 mb-60' id='l-init-0'></div>
+<script>bananajs.push({"callback":"related","json":"https://cifra.b-cdn.net/viewapi/related?region=BR&song_id=163042&v=3","id":"l-init-0"})</script>
+<script>bananajs.push({"callback":"yt_init"})</script>
+<script>bananajs.push({"callback":"save_hist"})</script>
+<script>songdata={"track_id":163042,"track_name":"My sweet lord","artist_name":"George Harrison","has_picture":1,"lang":"","tab_id":123354,"artist_name_id":"george-harrison","track_name_id":"my-sweet-lord","is_simplified":0}</script>
+<script src='/js/nosleep.js?v=6329235' async referrerpolicy='no-referrer'></script>
+<div id="footer_fixed" class="d-print-none">
+<div id="footer_fixed_content"></div>
+<div id="footer_fixed_ad" class="d-lg-none">
+<div id='fixed_footer_ad' class='adsbanana  d-print-none'
+ style='display:block;'
+ data-fb='5'
+ data-refresh='30'
+ data-size='320:320x100,320x50'
+ data-unit='/404213072/bananacifras'
+ data-ad-expansion='true'></div>
+<script>bananajs.push({"callback":"gpt"})</script>
+<script>bananajs.push({"callback":"interstitial_init"})</script>
+<script>bananajs.push({"callback":"ga4","data":"/teclado/song|/teclado/song"})</script>
+</div>
+</div>
+<!--<div style="height:.1px"></div>-->
+<div style="height:60px"></div>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e6a68469fa8f258',t:'MTc3NTI0Mzc4Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
